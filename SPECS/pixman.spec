@@ -3,7 +3,7 @@
 
 Name:           pixman
 Version:        0.40.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Pixel manipulation library
 
 License:        MIT
@@ -14,6 +14,8 @@ URL:            https://gitlab.freedesktop.org/pixman/pixman
 # if no revision specified, makes a new one from HEAD.
 Source0:        https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 Source1:        make-pixman-snapshot.sh
+
+Patch0: 0001-Avoid-integer-overflow-leading-to-out-of-bounds-writ.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -64,6 +66,9 @@ sed -i 's/120/600/' test/meson.build
 %{_libdir}/pkgconfig/pixman-1.pc
 
 %changelog
+* Mon Oct 09 2023 José Expósito <jexposit@redhat.com> - 0.40.0-6
+- Backport fix for CVE-2022-44638
+
 * Mon Aug 09 2021 Mohan Boddu <mboddu@redhat.com> - 0.40.0-5
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
   Related: rhbz#1991688
