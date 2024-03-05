@@ -3,7 +3,7 @@
 
 Name:           pixman
 Version:        0.38.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pixel manipulation library
 
 Group:          System Environment/Libraries
@@ -17,6 +17,7 @@ Source0:        https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{ve
 Source1:        make-pixman-snapshot.sh
 
 Patch0: 0001-Initialize-temporary-buffers-in-general_composite_re.patch
+Patch1: 0001-Avoid-integer-overflow-leading-to-out-of-bounds-writ.patch
 
 BuildRequires:  automake autoconf libtool
 BuildRequires:  gcc
@@ -68,6 +69,9 @@ make check %{?_smp_mflags} V=1
 %{_libdir}/pkgconfig/pixman-1.pc
 
 %changelog
+* Mon Oct 09 2023 José Expósito <jexposit@redhat.com> - 0.38.4-3
+- Backport fix for CVE-2022-44638
+
 * Tue Feb 22 2022 Adam Jackson <ajax@redhat.com> - 0.38.4-2
 - Backport the pixman part of cairo CVE-2020-35492
 
